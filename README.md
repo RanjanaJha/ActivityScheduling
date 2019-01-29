@@ -15,7 +15,7 @@ Activity Scheduling uses the following :
 
 ### DESIGN
 
-![alt text](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
+![alt text](https://github.com/RanjanaJha/ActivityScheduling/blob/master/Design.png)
 
 
 ### EXECUTION
@@ -25,12 +25,12 @@ After the pre-requisite, please follow the below steps for excution :
 
 ```sh
 //Clone the git repo
-$ git clone 
+$ git clone https://github.com/RanjanaJha/ActivityScheduling.git
 //Go to the project root folder
-$ cd ./DeloitteDigitalAwayDay
+$ cd ./ActivityScheduling
 //Build the project
 $ gradlew build
 //Go to the /build/libs directory
-$ java -jar DeloitteDigitalAwayDay.jar "ActivityFilepath,eg C:\DeloitteDigitalAwayDay\src\main\resources\Activities.txt"
+$ java -jar ActivityScheduling.jar "ActivityFilepath,eg C:\ActivityScheduling\src\main\resources\Activities.txt"
 //The output will be generated in the "libs" directory with naming as schedule_EPOCHSeconds.txt , //eg : schedule_1548790088.txt
 ```
