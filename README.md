@@ -47,7 +47,7 @@ $ git clone https://github.com/RanjanaJha/ActivityScheduling.git
 $ cd ./ActivityScheduling
 //Build the project
 $ ./gradlew build
-//Go to the /build/libs directory
+//Go to the build/libs directory
 $ java -jar ActivityScheduling.jar "ActivityFilepath,eg C:\ActivityScheduling\src\main\resources\Activities.txt"
 //The output will be generated in the current directory,"libs" in this with naming as schedule_EPOCHSeconds.txt , //eg : schedule_1548790088.txt
 ```
