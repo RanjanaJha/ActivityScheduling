@@ -3,43 +3,36 @@ package com.deloitte.digital.away.day.utils;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 
 import com.deloitte.digital.away.day.exception.SchedulerException;
 
+/**
+ * @author Ranjana Utility Class for Validating Input
+ */
 public class ValidationUtil {
-	
-	
-	public static void checkFilePathExists(String activitiesFileName) {
-		if (activitiesFileName.isEmpty()) {
+
+	/**
+	 * @param fileName
+	 */
+	public static void checkFilePathExists(Optional<String> fileName) {
+		if (!fileName.isPresent()) {
 			throw new SchedulerException(Constants.SPECIFY_FILE_PATH);
 		}
 	}
-	
-	
-	public static Path checkProperFilePath(String activitiesFileName) {
+
+	/**
+	 * @param activitiesFileName
+	 * @return Path filePath
+	 */
+	public static Path checkProperFilePath(Optional<String> activitiesFileName) {
 		Path filePath = null;
 		try {
-			filePath = Paths.get(activitiesFileName);
-		}catch(InvalidPathException e) {
+			checkFilePathExists(activitiesFileName);
+			filePath = Paths.get(activitiesFileName.get());
+		} catch (InvalidPathException e) {
 			throw new SchedulerException(Constants.INVALID_FILE_PATH);
 		}
 		return filePath;
 	}
-	
-/*	public static void checkTeamsExist(String teams){
-		if (teams.isEmpty()) {
-			throw new SchedulerException(Constants.SPECIFY_TEAM);
-		}
-	}
-	
-	public static int checkProperTeam(String teams){
-		int teamNumber = 0;
-		try {
-			teamNumber = Integer.parseInt(teams);
-		}catch(NumberFormatException e) {
-			throw new SchedulerException(Constants.IMPROPER_TEAM_NUMBER);
-		}
-		return teamNumber;
-	}*/
-
 }

@@ -16,6 +16,7 @@ public class ScheduleTest {
 		List<Activity> activities = new ArrayList<>();
 		activities.add(createActivityData("Duck Herding", 45));
 		activities.add(createActivityData("Archery", 60));
+		activities.add(createActivityData("Lunch Break", 60));
 		
 		Schedule schedule = new Schedule(activities);
 	
@@ -31,6 +32,12 @@ public class ScheduleTest {
 		expected.append(Constants.COLON);
 		expected.append(Constants.BLANK_SPACE);
 		expected.append(activities.get(1));
+		expected.append(Constants.NEW_LINE);
+		expected.append("10:45 AM");
+		expected.append(Constants.BLANK_SPACE);
+		expected.append(Constants.COLON);
+		expected.append(Constants.BLANK_SPACE);
+		expected.append(activities.get(2));
 		expected.append(Constants.NEW_LINE);
 		
 		assertTrue(expected.toString().equals(schedule.toString()));

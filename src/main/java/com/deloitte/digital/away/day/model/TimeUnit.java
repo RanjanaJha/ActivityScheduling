@@ -8,16 +8,15 @@ package com.deloitte.digital.away.day.model;
  *
  */
 public enum TimeUnit {
-	
-	MIN("min"),
-	SPRINT("sprint");
-	
+
+	MIN("min"), SPRINT("sprint");
+
 	private String timeUnitValue;
-	
+
 	public String getTimeUnitValue() {
 		return timeUnitValue;
 	}
-	
+
 	private TimeUnit(String timeUnitValue) {
 		this.timeUnitValue = timeUnitValue;
 	}

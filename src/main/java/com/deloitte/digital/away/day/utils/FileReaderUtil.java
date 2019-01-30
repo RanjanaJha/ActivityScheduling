@@ -13,8 +13,15 @@ import com.deloitte.digital.away.day.model.ActitvityType;
 import com.deloitte.digital.away.day.model.Activity;
 import com.deloitte.digital.away.day.model.TimeUnit;
 
+/**
+ * @author Ranjana Utility Class for reading file
+ */
 public class FileReaderUtil {
 
+	/**
+	 * @param filePath
+	 * @return List activity list
+	 */
 	public List<Activity> readFile(Path filePath) {
 
 		List<Activity> activities = new ArrayList<>();
@@ -39,7 +46,7 @@ public class FileReaderUtil {
 		} catch (NumberFormatException e) {
 			throw new SchedulerException(Constants.IMPROPER_TIME_FORMAT);
 		} catch (Exception e) {
-			throw new SchedulerException(Constants.IMPROPER_TIME_FORMAT);
+			throw new SchedulerException(Constants.INTERNAL_ERROR);
 		}
 
 		return activities;
@@ -61,6 +68,10 @@ public class FileReaderUtil {
 		}
 	}
 
+	/**
+	 * @param contents
+	 * @param activities
+	 */
 	public void createActivityList(List<String> contents, List<Activity> activities) {
 		for (String activity : contents) {
 			Activity act = new Activity();

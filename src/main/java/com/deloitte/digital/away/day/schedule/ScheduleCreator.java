@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.deloitte.digital.away.day.schedule;
 
 import java.util.ArrayList;
@@ -15,8 +12,7 @@ import com.deloitte.digital.away.day.utils.Constants;
 import com.deloitte.digital.away.day.utils.TimeOperationUtil;
 
 /**
- * @author Ranjana
- *
+ * @author Ranjana Class for creating schedule
  */
 public class ScheduleCreator {
 
@@ -30,8 +26,10 @@ public class ScheduleCreator {
 
 	public ScheduleCreator(List<Activity> activities) {
 		this.activities = activities;
-		this.maxDuration = TimeOperationUtil.timeDifferenceInMins(Constants.START_TIME, Constants.END_TIME);
-		this.minDuration = TimeOperationUtil.timeDifferenceInMins(Constants.START_TIME, Constants.MIN_END_TIME);
+		this.maxDuration = TimeOperationUtil.timeDifferenceInMins(Constants.START_TIME, Constants.END_TIME,
+				Constants.DATE_FORMAT);
+		this.minDuration = TimeOperationUtil.timeDifferenceInMins(Constants.START_TIME, Constants.MIN_END_TIME,
+				Constants.DATE_FORMAT);
 	}
 
 	public List<Activity> getActivities() {
@@ -46,7 +44,17 @@ public class ScheduleCreator {
 		return minDuration;
 	}
 
-	public Map<Integer, Schedule> getMapOfTeamsAndActivities(long maxDuration, long minDuration) {
+	/**
+	 * @param maxDuration
+	 * @param minDuration
+	 * @param startTime
+	 * @param lunchStartRange
+	 * @param lunchEndRange
+	 * @param dateFormat
+	 * @return
+	 */
+	public Map<Integer, Schedule> getMapOfTeamsAndActivities(long maxDuration, long minDuration, String startTime,
+			String lunchStartRange, String lunchEndRange, String dateFormat) {
 
 		List<Activity> activities = this.getActivities();
 		List<List<Activity>> subsetOfActivities = new ArrayList<>();
@@ -66,8 +74,8 @@ public class ScheduleCreator {
 			// Non empty subset
 			// subset size > 1
 			// subset has lunch as one of the activity
-			if (!checkSubsetEmpty(subset) && subset.size() > 1
-					&& subsetToBeAddedOrNot(maxDuration, minDuration, subset)) {
+			if (!checkSubsetEmpty(subset) && subset.size() > 1 && subsetToBeAddedOrNot(subset, maxDuration, minDuration,
+					startTime, lunchStartRange, lunchEndRange, dateFormat)) {
 				subset.add(createMotivationActivity());
 				subsetOfActivities.add(subset);
 				mapOfSchedule.put(++teamCounter, new Schedule(subset));
@@ -77,34 +85,82 @@ public class ScheduleCreator {
 		return mapOfSchedule;
 	}
 
-	private boolean subsetToBeAddedOrNot(long maxDuration, long minDuration, List<Activity> subset) {
+	/**
+	 * @param subset
+	 * @param maxDuration
+	 * @param minDuration
+	 * @param startTime
+	 * @param lunchStartRange
+	 * @param lunchEndRange
+	 * @param dateFormat
+	 * @return
+	 */
+	private boolean subsetToBeAddedOrNot(List<Activity> subset, long maxDuration, long minDuration, String startTime,
+			String lunchStartRange, String lunchEndRange, String dateFormat) {
 
 		int sum = 0;
 		boolean isLunchPresent = false;
 		boolean subsetToBeAdded = false;
+		int indexToSwapLunchWith = -1;
+		int lunchIndex = -1;
+		int currentIndex = -1;
+		long lunchStartDuration = getLunchStartDuration(startTime, lunchStartRange, dateFormat);
+		long lunchEndDuration = getLunchEndDuration(startTime, lunchEndRange, dateFormat);
 
 		for (Activity activity : subset) {
+			++currentIndex;
 			sum = sum + activity.getDuration();
 			isLunchPresent = ActitvityType.LUNCH.equals(activity.getType());
+			lunchIndex = isLunchPresent ? currentIndex : -1;
+			if (sum >= lunchStartDuration && sum <= lunchEndDuration) {
+				indexToSwapLunchWith = currentIndex;
+			}
 		}
 
 		// check if the subset satisfies the following filter
 		// Lunch should be a part of the subset &&
 		// Combined duration of all the activities should be between the min and max
 		// allowed duration
-		if (isLunchPresent && sum >= minDuration && sum <= maxDuration) {
+		if (isLunchPresent && sum == maxDuration) {
+			Activity other = subset.get(indexToSwapLunchWith);
+			subset.set(indexToSwapLunchWith, subset.get(lunchIndex));
+			subset.set(lunchIndex, other);
 			subsetToBeAdded = true;
 		}
 
 		return subsetToBeAdded;
 	}
 
+	/**
+	 * @param subset
+	 * @return
+	 */
 	private boolean checkSubsetEmpty(List<Activity> subset) {
 		return subset.isEmpty();
 	}
-	
+
+	/**
+	 * @param startTime
+	 * @param lunchStartRange
+	 * @param dateFormat
+	 * @return
+	 */
+	private long getLunchStartDuration(String startTime, String lunchStartRange, String dateFormat) {
+		return TimeOperationUtil.timeDifferenceInMins(startTime, lunchStartRange, dateFormat);
+	}
+
+	/**
+	 * @param startTime
+	 * @param lunchEndRange
+	 * @param dateFormat
+	 * @return
+	 */
+	private long getLunchEndDuration(String startTime, String lunchEndRange, String dateFormat) {
+		return TimeOperationUtil.timeDifferenceInMins(startTime, lunchEndRange, dateFormat);
+	}
+
 	private Activity createMotivationActivity() {
-		
+
 		Activity act = new Activity();
 		act.setName(ActitvityType.MOTIVATION.getActivityType());
 		act.setType(ActitvityType.MOTIVATION);
