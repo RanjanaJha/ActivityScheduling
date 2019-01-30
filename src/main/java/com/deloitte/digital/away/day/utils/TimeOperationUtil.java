@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.deloitte.digital.away.day.exception.SchedulerException;
 
@@ -11,6 +13,8 @@ import com.deloitte.digital.away.day.exception.SchedulerException;
  * @author Ranjana Utility Class for operation on time
  */
 public class TimeOperationUtil {
+	
+	private static final Logger log = Logger.getLogger(TimeOperationUtil.class.getName());
 
 	/**
 	 * @param time in the specified date format ("hh:mm a")
@@ -38,6 +42,7 @@ public class TimeOperationUtil {
 		try {
 			date = format.parse(time);
 		} catch (ParseException e) {
+			log.log(Level.SEVERE,Constants.INCORRECT_DATE_FORMAT,new SchedulerException(Constants.INCORRECT_DATE_FORMAT));
 			throw new SchedulerException(Constants.INCORRECT_DATE_FORMAT);
 		}
 

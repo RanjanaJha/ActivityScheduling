@@ -5,6 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -17,6 +19,8 @@ import com.deloitte.digital.away.day.model.TimeUnit;
  * @author Ranjana Utility Class for reading file
  */
 public class FileReaderUtil {
+	
+	private static final Logger log = Logger.getLogger(FileReaderUtil.class.getName());
 
 	/**
 	 * @param filePath
@@ -42,10 +46,13 @@ public class FileReaderUtil {
 			addLunchToActivityList(activities);
 
 		} catch (IOException e) {
+			log.log(Level.SEVERE,Constants.FILE_READ_ERROR,new SchedulerException(Constants.FILE_READ_ERROR));
 			throw new SchedulerException(Constants.FILE_READ_ERROR);
 		} catch (NumberFormatException e) {
+			log.log(Level.SEVERE,Constants.IMPROPER_TIME_FORMAT,new SchedulerException(Constants.IMPROPER_TIME_FORMAT));
 			throw new SchedulerException(Constants.IMPROPER_TIME_FORMAT);
 		} catch (Exception e) {
+			log.log(Level.SEVERE,Constants.INTERNAL_ERROR,new SchedulerException(Constants.INTERNAL_ERROR));
 			throw new SchedulerException(Constants.INTERNAL_ERROR);
 		}
 
@@ -62,6 +69,7 @@ public class FileReaderUtil {
 			contents.set(i, contents.get(i).trim());
 			if (!(contents.get(i).endsWith(TimeUnit.MIN.getTimeUnitValue())
 					|| contents.get(i).endsWith(TimeUnit.SPRINT.getTimeUnitValue()))) {
+				log.log(Level.SEVERE,Constants.IMPROPER_ACTIVITY_FORMAT,new SchedulerException(Constants.IMPROPER_ACTIVITY_FORMAT));
 				throw new SchedulerException(Constants.IMPROPER_ACTIVITY_FORMAT);
 			}
 

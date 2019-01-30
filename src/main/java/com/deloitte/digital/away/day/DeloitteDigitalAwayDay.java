@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.time.Instant;
 import java.util.Map;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import com.deloitte.digital.away.day.model.Schedule;
 import com.deloitte.digital.away.day.schedule.ScheduleCreator;
@@ -18,7 +19,9 @@ import com.deloitte.digital.away.day.utils.ValidationUtil;
  * @author Ranjana Main class for activity scheduling
  */
 public class DeloitteDigitalAwayDay {
-
+	
+	private static final Logger log = Logger.getLogger(DeloitteDigitalAwayDay.class.getName());
+	
 	public static void main(String[] args) throws FileNotFoundException{
 
 		// get activities from command line

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import com.deloitte.digital.away.day.model.ActitvityType;
 import com.deloitte.digital.away.day.model.Activity;
@@ -15,6 +16,8 @@ import com.deloitte.digital.away.day.utils.TimeOperationUtil;
  * @author Ranjana Class for creating schedule
  */
 public class ScheduleCreator {
+	
+	private static final Logger log = Logger.getLogger(ScheduleCreator.class.getName());
 
 	private final List<Activity> activities;
 
