@@ -31,6 +31,7 @@ public final class Constants {
 	public static final String IMPROPER_TEAM_NUMBER = "Teams should be a number.";
 	public static final String TEAMS_VS_SUBSET = "Total number of teams is greater than the possible subsets.";
 	public static final String INCORRECT_DATE_FORMAT = "The expected date format is \"hh:mm a\".Please specify the correct format.";
+	public static final String FILE_DOES_NOT_EXISTS = "The specified file does not exist.";
 	public static final String INTERNAL_ERROR = "Unexpected Error.";
 
 }

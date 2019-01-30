@@ -19,6 +19,14 @@ public class ValidationUtil {
 		if (!fileName.isPresent()) {
 			throw new SchedulerException(Constants.SPECIFY_FILE_PATH);
 		}
+		
+	}
+	
+	public static void checkFileExists(Path fileName) {
+		if (!fileName.toFile().exists()) {
+			throw new SchedulerException(Constants.FILE_DOES_NOT_EXISTS);
+		}
+		
 	}
 
 	/**
@@ -30,6 +38,7 @@ public class ValidationUtil {
 		try {
 			checkFilePathExists(activitiesFileName);
 			filePath = Paths.get(activitiesFileName.get());
+			checkFileExists(filePath);
 		} catch (InvalidPathException e) {
 			throw new SchedulerException(Constants.INVALID_FILE_PATH);
 		}

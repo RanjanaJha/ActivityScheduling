@@ -23,8 +23,8 @@ public class ValidationUtilTest {
 		ValidationUtil.checkFilePathExists(fileName);
 	}
 
-	@Test
-	public void testCheckProperFilePathPositiveCase() {
+	@Test(expected = SchedulerException.class)
+	public void testCheckFileDoesNotExist() {
 		Optional<String> fileName =Optional.of("/DeloitteDigitalAwayDay/src/test/resources/Activities.txt");
 		Path filePath = ValidationUtil.checkProperFilePath(fileName);
 		assertNotNull(filePath);

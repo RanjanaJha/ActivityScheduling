@@ -19,7 +19,7 @@ import com.deloitte.digital.away.day.utils.ValidationUtil;
  */
 public class DeloitteDigitalAwayDay {
 
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) throws FileNotFoundException{
 
 		// get activities from command line
 		final Optional<String> activitiesFileName = Optional.ofNullable(args[0]);

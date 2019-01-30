@@ -24,7 +24,6 @@ public class ScheduleCreatorTest {
 
 		Map<Integer, Schedule> mapOfSchedule = schedule.getMapOfTeamsAndActivities(300,330,Constants.START_TIME,Constants.LUNCH_START_RANGE,Constants.LUNCH_END_RANGE,Constants.DATE_FORMAT);
 
-		System.out.println(mapOfSchedule.size());
 		assertNotNull(mapOfSchedule);
 		assertTrue(mapOfSchedule.size() < (2^8));
 
@@ -39,7 +38,6 @@ public class ScheduleCreatorTest {
 
 		Map<Integer, Schedule> mapOfSchedule = schedule.getMapOfTeamsAndActivities(300,330,Constants.START_TIME,Constants.LUNCH_START_RANGE,Constants.LUNCH_END_RANGE,Constants.DATE_FORMAT);
 
-		System.out.println(mapOfSchedule.size());
 		assertNotNull(mapOfSchedule);
 		assertTrue(mapOfSchedule.size() >0);
 
