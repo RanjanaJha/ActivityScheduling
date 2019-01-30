@@ -22,8 +22,8 @@ The approach used to design the solution is based on the concept of "All possibl
 * Schedule = Final subsets obtained after filtering. Hence, the solution is closely related to the 0/1 Knapsack Problem.
             Apply filtering on the subsets based on the problem statement given:
 * Non Empty Subset: All the subsets in the final subset should be non empty.
-* Lunch Break is all considered as one of the activity . Hence all the final subset should contain Lunch as an activity.
-* No Single element subset: Final subset was filtered out of all those subsets which had single element, since that meant that it consisted of only Lunch Break as an activity because of the condition in "b" above.
+* Lunch Break is also considered as one of the activity . Hence all the subsets in the final subset should contain Lunch Break as an activity.
+* No Single element subset: Final subset was filtered out of all those subsets which had single element, since that meant that it consisted of only Lunch Break as an activity because of the condition "b" above.
 * Final subset will contain all those subsets, each of which have a duration time equal to the time difference of the start and end time (in minutes.)
                     E.g. If START_TIME = "09:00 AM" END_TIME = "05:00 PM”,
                     MAX_DURATION = 480 mins,
